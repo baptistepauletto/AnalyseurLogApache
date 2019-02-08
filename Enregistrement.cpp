@@ -51,6 +51,13 @@ Date Enregistrement::GetDate( )
 	return date;
 } //----- Fin de Méthode
 
+string Enregistrement::GetTypeAction( )
+// Algorithme :
+//
+{
+	return typeAction;
+} //----- Fin de Méthode
+
 string Enregistrement::GetDestination( )
 // Algorithme :
 //
@@ -88,11 +95,13 @@ string Enregistrement::GetNavigateurClient( )
 } //----- Fin de Méthode
 
 //------------------------------------------------- Surcharge d'opérateurs
-//Enregistrement & Enregistrement::operator = ( const Enregistrement & unEnregistrement )
+Enregistrement & Enregistrement::operator = ( const Enregistrement & unEnregistrement )
 // Algorithme :
 //
-//{
-//} //----- Fin de operator =
+{
+	adresseIP = unEnregistrement.adresseIP; 
+	return *this;
+} //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -107,13 +116,14 @@ Enregistrement::Enregistrement ( const Enregistrement & unEnregistrement )
 
 
 Enregistrement::Enregistrement ( string adresseIP, string userLogname,
-                 string username, Date date,
+                 string username, Date date, string typeAction,
                  string destination,  Status status,
                  int qteDonnees, string source,
                  string navigateurClient ) 
 	: adresseIP(adresseIP), userLogname(userLogname),
-	 username(username), date(date), destination(destination),
-	 status(status), qteDonnees(qteDonnees), source(source),
+	 username(username), date(date), typeAction(typeAction),
+	 destination(destination), status(status), 
+	 qteDonnees(qteDonnees), source(source),
 	 navigateurClient(navigateurClient)
 // Algorithme :
 //

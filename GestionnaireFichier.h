@@ -16,12 +16,14 @@
 #include "Enregistrement.h"
 //------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------------ Types
-
 //------------------------------------------------------------------------
 // Rôle de la classe <GestionnaireFichier>
-//
-//
+// La classe GestionnaireFichier a pour objectif de permettre certaines
+// interactions avec le fichier de log Apache, en effet, il fait office 
+// de singleton permettant d'ouvrir le fichier et d'en lire une ligne,
+// qui sont les briques de base de l'application. D'autre part, il 
+// permet également d'écrire dans un fichier en sortie selon les directives
+// du cahier des charges (génération de graphe notamment).
 //------------------------------------------------------------------------
 
 class GestionnaireFichier 
@@ -29,6 +31,8 @@ class GestionnaireFichier
 //----------------------------------------------------------------- PUBLIC
 
 public:
+    static ifstream fichierEntree;
+    static ofstream fichierSortie;
 //----------------------------------------------------- Méthodes publiques
     void OuvrirFichier(const string & nomDeFichier);
     // Mode d'emploi :
@@ -37,20 +41,13 @@ public:
     // Contrat :
     //
 
-    void LireLigneSuivante();
+    Enregistrement LireLigneSuivante();
     // Mode d'emploi :
     //       	Cette méthode met à jour l'enregistrement courant,
     //       	suite à la lecture de la prochaine ligne du fichier journal.
     // Contrat :
     //		Le fichier a du être ouvert au préalable.
     
-    Enregistrement getEnregistrementCourant();
-    // Mode d'emploi :
-    //       Cette méthode renvoie l'attribut enregistrementCourant.
-    // Contrat :
-    //		L'enregistrement courant a du être initialisé 
-    //		(lecture d\'au moins une ligne). 
-
 //------------------------------------------------- Surcharge d'opérateurs
  //   GestionnaireFichier & operator = ( const GestionnaireFichier & unGestionnaireFichier );
     // Mode d'emploi :
@@ -68,7 +65,7 @@ public:
 
     GestionnaireFichier ( );
     // Mode d'emploi :
-    //		Le constructeur est inline car très simple (par défaut vide).
+    //
     // Contrat :
     //
 
@@ -84,8 +81,6 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 		
 //----------------------------------------------------- Attributs protégés
-	static ifstream fichierEntree;
-	static ofstream fichierSortie;
 	Enregistrement enregistrementCourant;
 
 };

@@ -13,6 +13,8 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
+
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -24,10 +26,11 @@ typedef struct Date {
        	int secondes;
        	int jour;
        	string mois;
-       	int annee; 
+       	int annee;
+	string difGW; //Différence avec le méridien de Greenwich 
 	Date (int h = 0, int min = 0, int s = 0, int j = 0, string moi = "",
-		int a = 0) : heure(h), minutes(min), secondes(s), jour(j),
-		mois(moi), annee(a) {}
+		int a = 0, string d ="") : heure(h), minutes(min), secondes(s), jour(j),
+		mois(moi), annee(a), difGW(d) {}
 } Date ;
 //------------------------------------------------------------------------
 // Rôle de la classe <Enregistrement>
@@ -66,6 +69,12 @@ public:
     // Contrat :
     //
     
+    string GetTypeAction();
+    // Mode d'emploi :
+    //		Cette méthode renvoie la valeur de l'attribut destination.
+    // Contrat :
+    //
+    
     string GetDestination();
     // Mode d'emploi :
     //		Cette méthode renvoie la valeur de l'attribut destination.
@@ -97,7 +106,7 @@ public:
     //
 
 //------------------------------------------------- Surcharge d'opérateurs
-//    Enregistrement & operator = ( const Enregistrement & unEnregistrement );
+    Enregistrement & operator = ( const Enregistrement & unEnregistrement );
     // Mode d'emploi :
     //
     // Contrat :
@@ -111,11 +120,11 @@ public:
     // Contrat :
     //
 
-    Enregistrement ( string  adresseIP = "", string userLogname = "",
-		   string username = "", Date date = Date(),
-		   string destination = "",  Status status = MISSING, 
-		   int qteDonnees = 0, string source = "", 
-		   string navigateurClient = "" );
+    Enregistrement ( string  adresseIP = "NTM", string userLogname = "",
+		   string username = "", Date date = Date(), 
+		   string typeAction = "", string destination = "",
+		   Status status = MISSING, int qteDonnees = 0,
+	           string source = "", string navigateurClient = "" );
     // Mode d'emploi :
     //
     // Contrat :
@@ -138,6 +147,7 @@ protected:
     string userLogname;
     string username;
     Date date;
+    string typeAction;
     string destination;
     Status status;
     unsigned int qteDonnees;
