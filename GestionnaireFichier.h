@@ -81,7 +81,6 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 		
 //----------------------------------------------------- Attributs protégés
-	Enregistrement enregistrementCourant;
 
 };
 

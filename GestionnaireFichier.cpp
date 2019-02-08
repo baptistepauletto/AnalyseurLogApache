@@ -83,7 +83,6 @@ Enregistrement GestionnaireFichier::LireLigneSuivante( )
 	Date date (stoi(secondes),stoi(minutes),stoi(heure),stoi(jour),mois,stoi(annee),difGW);
 	Enregistrement e (adresseIP,userLogname,username,date,typeAction,
 	destination,(Status) stoi(status),stoi(qteDonnees),source,navigateurClient);
-	enregistrementCourant = e;
 	return e;
 } //----- Fin de LireLigneSuivante
 
@@ -110,7 +109,6 @@ GestionnaireFichier::GestionnaireFichier ( )
 // Algorithme :
 //
 {
-	enregistrementCourant = Enregistrement ();
 #ifdef MAP
     cout << "Appel au constructeur de <GestionnaireFichier>" << endl;
 #endif
