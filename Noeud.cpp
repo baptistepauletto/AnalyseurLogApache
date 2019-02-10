@@ -40,6 +40,22 @@ void Noeud::IncrementePointeePar()
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
+
+ostream & operator << ( ostream & os, Noeud & unNoeud)
+// Algortihme :
+//
+{
+	os << "id : " << unNoeud.identifiant << endl 
+	<< " pointé par : " << unNoeud.pointeePar << endl
+	<< " pointe : " << unNoeud.pointe << endl
+	<< " aretes  : ";
+	for(auto it = unNoeud.aretes.begin();it!=unNoeud.aretes.end() ;it++)
+	{
+		os << it->first << " => " << it->second << endl;
+	} 
+	return os;
+}
+
 //Noeud & Noeud::operator = ( const Noeud & unNoeud )
 // Algorithme :
 //
@@ -58,8 +74,8 @@ Noeud::Noeud ( const Noeud & unNoeud )
 } //----- Fin de Noeud (constructeur de copie)
 
 
-Noeud::Noeud (string id, int pp, int p) : identifiant(id),
-pointeePar(pp), pointe(p)
+Noeud::Noeud (string id, int pp, int p) : 
+identifiant(id), pointeePar(pp), pointe(p)
 // Algorithme :
 //
 {

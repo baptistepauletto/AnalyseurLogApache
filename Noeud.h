@@ -46,7 +46,14 @@ void IncrementePointeePar();
     //
 
 //------------------------------------------------- Surcharge d'opérateurs
- //   Noeud & operator = ( const Noeud & unNoeud );
+ 
+ friend ostream & operator << (ostream & os, Noeud & unNoeud);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+//   Noeud & operator = ( const Noeud & unNoeud );
     // Mode d'emploi :
     //
     // Contrat :

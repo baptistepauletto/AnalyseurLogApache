@@ -12,6 +12,8 @@ int main(){
 	//e.GetDestination() << " " << e.GetStatus() << " " << e.GetQteDonnees() << " " << e.GetSource()
 	//<< " " << e.GetNavigateurClient();
 	Graphe g;
+	//Noeud a("oui");
 	g.AjouterNoeud(gestionnaire.LireLigneSuivante());
+	cout << g ;
 	return 0;
 }

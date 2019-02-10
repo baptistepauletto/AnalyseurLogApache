@@ -45,6 +45,13 @@ public:
     //	   
 
 //------------------------------------------------- Surcharge d'opérateurs
+
+friend ostream & operator << (ostream & os, Graphe & unGraphe);
+    //Mode d'emploi :
+    // 
+    // Contrat :
+    //
+
  //   Graphe & operator = ( const Graphe & unGraphe );
     // Mode d'emploi :
     //

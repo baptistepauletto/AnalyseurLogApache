@@ -42,6 +42,7 @@ void Graphe::AjouterNoeud(Enregistrement e)
 		Noeud nouveauNoeudDest (e.GetDestination(),1);
 		tableCorrespondance.insert(make_pair(e.GetDestination(),indiceC));
 		noeuds.insert(make_pair(indiceC++,nouveauNoeudDest));
+		++nbNoeuds;
 	} 
 	if(!(itS == tableCorrespondance.end())) //Si le noeud source existe.
 	{	
@@ -54,12 +55,34 @@ void Graphe::AjouterNoeud(Enregistrement e)
 		nouveauNoeudSource.AjouterArete(tableCorrespondance.find(e.GetDestination())->second);
 		tableCorrespondance.insert(make_pair(e.GetSource(),indiceC));
 		noeuds.insert(make_pair(indiceC++,nouveauNoeudSource));
+		++nbNoeuds;
 	}
 
 	
 } //---- Fin de AjouterNoeud
 
 //------------------------------------------------- Surcharge d'opérateurs
+
+ostream & operator << (ostream & os, Graphe & unGraphe)
+// Algorithme :
+//
+// Contrat : 
+//
+{
+	os << "Nb noeuds : " << unGraphe.nbNoeuds << endl
+	<< "Indice C : " << unGraphe.indiceC << endl;
+	for(auto it = unGraphe.noeuds.begin(); it != unGraphe.noeuds.end(); it++)
+	{
+		 os << it->first << " => " << it->second << endl;
+	}
+	os << "Indices d'indexation : " << endl;
+	for(auto it = unGraphe.tableCorrespondance.begin(); it != unGraphe.tableCorrespondance.end(); it++)
+	{
+		os << "--- " << it->second << " => " << it->first << endl;
+	}
+	return os;
+}
+
 //Graphe & Graphe::operator = ( const Graphe & unGraphe )
 // Algorithme :
 //
