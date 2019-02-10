@@ -40,8 +40,8 @@ void Graphe::AjouterNoeud(Enregistrement e)
 	else // Si la destination n'est pas encore disponible, on la créée.
 	{
 		Noeud nouveauNoeudDest (e.GetDestination(),1);
-		tableCorrespondance[e.GetDestination()] = indiceC;
-		noeuds[indiceC++] = nouveauNoeudDest;
+		tableCorrespondance.insert(make_pair(e.GetDestination(),indiceC));
+		noeuds.insert(make_pair(indiceC++,nouveauNoeudDest));
 	} 
 	if(!(itS == tableCorrespondance.end())) //Si le noeud source existe.
 	{	
@@ -52,8 +52,8 @@ void Graphe::AjouterNoeud(Enregistrement e)
 	{
 		Noeud nouveauNoeudSource(e.GetSource(),0,1); 
 		nouveauNoeudSource.AjouterArete(tableCorrespondance.find(e.GetDestination())->second);
-		tableCorrespondance[e.GetSource()] = indiceC;
-		noeuds[indiceC++] = nouveauNoeudSource;
+		tableCorrespondance.insert(make_pair(e.GetSource(),indiceC));
+		noeuds.insert(make_pair(indiceC++,nouveauNoeudSource));
 	}
 
 	
@@ -78,7 +78,7 @@ Graphe::Graphe ( const Graphe & unGraphe )
 } //----- Fin de Graphe (constructeur de copie)
 
 
-Graphe::Graphe ( ) : nbNoeuds (0)
+Graphe::Graphe ( ) : nbNoeuds (0), indiceC (0)
 // Algorithme :
 //
 {
