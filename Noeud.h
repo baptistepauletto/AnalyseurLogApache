@@ -44,16 +44,13 @@ void IncrementePointeePar();
     // ce qui signifie une arete de plus pointant vers ce noeud.
     // Contrat :
     //
+string getIdentifiant();
+unsigned int getPointeePar();
+unsigned int getPointe();
+int getNbhits(int id);
 
 //------------------------------------------------- Surcharge d'opérateurs
- 
- friend ostream & operator << (ostream & os, Noeud & unNoeud);
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-//   Noeud & operator = ( const Noeud & unNoeud );
+ //   Noeud & operator = ( const Noeud & unNoeud );
     // Mode d'emploi :
     //
     // Contrat :
@@ -78,6 +75,7 @@ void IncrementePointeePar();
     //
     // Contrat :
     //
+    
 
 //------------------------------------------------------------------ PRIVE
 

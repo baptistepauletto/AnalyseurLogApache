@@ -86,6 +86,11 @@ Enregistrement GestionnaireFichier::LireLigneSuivante( )
 	return e;
 } //----- Fin de LireLigneSuivante
 
+int GestionnaireFichier::LigneSuivanteExiste()
+{
+	return Entree.peek();
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 //GestionnaireFichier & GestionnaireFichier::operator = ( const GestionnaireFichier & unGestionnaireFichier )
 // Algorithme :

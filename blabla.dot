@@ -1,0 +1,7 @@
+diagraph{
+node2 [label="C"];
+node0 [label="A"];
+node1 [label="B"];
+node2 -> node1 [label="2"];
+node1 -> node0 [label="3"];
+}

@@ -13,7 +13,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-
+#include <fstream>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -40,9 +40,9 @@ void Graphe::AjouterNoeud(Enregistrement e)
 	else // Si la destination n'est pas encore disponible, on la créée.
 	{
 		Noeud nouveauNoeudDest (e.GetDestination(),1);
-		tableCorrespondance.insert(make_pair(e.GetDestination(),indiceC));
-		noeuds.insert(make_pair(indiceC++,nouveauNoeudDest));
-		++nbNoeuds;
+		tableCorrespondance[e.GetDestination()] = indiceC;
+		noeuds[indiceC++] = nouveauNoeudDest;
+		nbNoeuds++;
 	} 
 	if(!(itS == tableCorrespondance.end())) //Si le noeud source existe.
 	{	
@@ -53,36 +53,36 @@ void Graphe::AjouterNoeud(Enregistrement e)
 	{
 		Noeud nouveauNoeudSource(e.GetSource(),0,1); 
 		nouveauNoeudSource.AjouterArete(tableCorrespondance.find(e.GetDestination())->second);
-		tableCorrespondance.insert(make_pair(e.GetSource(),indiceC));
-		noeuds.insert(make_pair(indiceC++,nouveauNoeudSource));
-		++nbNoeuds;
+		tableCorrespondance[e.GetSource()] = indiceC;
+		noeuds[indiceC++] = nouveauNoeudSource;
+		nbNoeuds++;
 	}
 
 	
 } //---- Fin de AjouterNoeud
 
-//------------------------------------------------- Surcharge d'opérateurs
-
-ostream & operator << (ostream & os, Graphe & unGraphe)
-// Algorithme :
-//
-// Contrat : 
-//
+void Graphe::ExportGraph(string nomFichier)
 {
-	os << "Nb noeuds : " << unGraphe.nbNoeuds << endl
-	<< "Indice C : " << unGraphe.indiceC << endl;
-	for(auto it = unGraphe.noeuds.begin(); it != unGraphe.noeuds.end(); it++)
+	ofstream os;
+	os.open(nomFichier);
+	os<<"digraph{"<<endl;
+	for(unordered_map<int,Noeud>::iterator it=noeuds.begin();it!=noeuds.end();it++)
 	{
-		 os << it->first << " => " << it->second << endl;
+			os<<"node"<<it->first<<" [label=\""<<it->second.getIdentifiant()<<"\"];"<<endl;
 	}
-	os << "Indices d'indexation : " << endl;
-	for(auto it = unGraphe.tableCorrespondance.begin(); it != unGraphe.tableCorrespondance.end(); it++)
+	for(unordered_map<int,Noeud>::iterator it=noeuds.begin();it!=noeuds.end();it++)
 	{
-		os << "--- " << it->second << " => " << it->first << endl;
+			for(unsigned int i=0;i<nbNoeuds;i++)
+			{
+				if(it->second.getNbhits(i)>0)
+					os<<"node"<<it->first<<" -> "<<"node"<<i<<" [label=\""<<it->second.getNbhits(i)<<"\"];"<<endl;
+			} 
 	}
-	return os;
+	os<<"}"<<endl;
+	os.close();
 }
 
+//------------------------------------------------- Surcharge d'opérateurs
 //Graphe & Graphe::operator = ( const Graphe & unGraphe )
 // Algorithme :
 //
@@ -101,7 +101,7 @@ Graphe::Graphe ( const Graphe & unGraphe )
 } //----- Fin de Graphe (constructeur de copie)
 
 
-Graphe::Graphe ( ) : nbNoeuds (0), indiceC (0)
+Graphe::Graphe ( ) : nbNoeuds (0)
 // Algorithme :
 //
 {

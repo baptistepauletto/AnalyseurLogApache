@@ -43,15 +43,10 @@ public:
     // Ce noeud, s'il est nouveau sera alors ajouté au graphe.	
     // Contrat :
     //	   
+    
+    void ExportGraph(string nomFichier);    
 
 //------------------------------------------------- Surcharge d'opérateurs
-
-friend ostream & operator << (ostream & os, Graphe & unGraphe);
-    //Mode d'emploi :
-    // 
-    // Contrat :
-    //
-
  //   Graphe & operator = ( const Graphe & unGraphe );
     // Mode d'emploi :
     //
