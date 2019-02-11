@@ -48,6 +48,8 @@ public:
     // Contrat :
     //		Le fichier a du être ouvert au préalable.
     
+    int LigneSuivanteExiste();
+    
 //------------------------------------------------- Surcharge d'opérateurs
  //   GestionnaireFichier & operator = ( const GestionnaireFichier & unGestionnaireFichier );
     // Mode d'emploi :
