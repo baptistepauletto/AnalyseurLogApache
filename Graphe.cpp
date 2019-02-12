@@ -42,7 +42,7 @@ void Graphe::AjouterNoeud(Enregistrement e)
 	{
 		Noeud nouveauNoeudDest (e.GetDestination(),1);
 		tableCorrespondance.insert(make_pair(e.GetDestination(),indiceC));
-		noeuds.insert(make_pair(indiceC++,nouveauNoeudDest));
+		noeuds[indiceC++] = nouveauNoeudDest;
 		++nbNoeuds;
 	} 
 	if(!(itS == tableCorrespondance.end())) //Si le noeud source existe.
@@ -55,7 +55,7 @@ void Graphe::AjouterNoeud(Enregistrement e)
 		Noeud nouveauNoeudSource(e.GetSource(),0,1); 
 		nouveauNoeudSource.AjouterArete(tableCorrespondance.find(e.GetDestination())->second);
 		tableCorrespondance.insert(make_pair(e.GetSource(),indiceC));
-		noeuds.insert(make_pair(indiceC++,nouveauNoeudSource));
+		noeuds[indiceC++] = nouveauNoeudSource;
 		++nbNoeuds;
 	}
 

@@ -19,6 +19,7 @@ int main(){
 	g.AjouterNoeud(gestionnaire.LireLigneSuivante());
 	while(gestionnaire.LigneSuivanteExiste()!=-1)
 		g.AjouterNoeud(gestionnaire.LireLigneSuivante());
-	g.ExportGraph("blabla.dot");	cout << a ;
+	g.ExportGraph("blabla.dot");
+	cout << g ;
 	return 0;
 }
