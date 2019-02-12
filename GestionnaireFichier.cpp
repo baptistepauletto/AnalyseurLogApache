@@ -80,7 +80,7 @@ Enregistrement GestionnaireFichier::LireLigneSuivante( )
 	//cout << adresseIP << ' ' << userLogname << " " << username << " " << chaineDate << " " << difGW 
 	//<< " " << typeAction <<" "<< destination <<" "<< status << " " << qteDonnees << " " <<
 	//source << " " << navigateurClient << endl;
-	Date date (stoi(secondes),stoi(minutes),stoi(heure),stoi(jour),mois,stoi(annee),difGW);
+	Date date (stoi(heure),stoi(minutes),stoi(secondes),stoi(jour),mois,stoi(annee),difGW);
 	Enregistrement e (adresseIP,userLogname,username,date,typeAction,
 	destination,(Status) stoi(status),qteDonnees,source,navigateurClient);
 	return e;
