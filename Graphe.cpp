@@ -14,12 +14,14 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 #include <fstream>
+#include <map>
 
 using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Graphe.h"
 #include "Noeud.h"
+#include "GestionnaireFichier.h"
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -63,7 +65,7 @@ void Graphe::AjouterNoeud(Enregistrement e)
 } //---- Fin de AjouterNoeud
 
 
-void Graphe::ExportGraph(string nomFichier)
+void Graphe::ExportGraphe(string nomFichier)
 // Algorithme :
 //
 {
@@ -85,6 +87,23 @@ void Graphe::ExportGraph(string nomFichier)
 	os<<"}"<<endl;
 	os.close();
 
+
+}
+
+void Graphe::ChargerGraphe()
+{
+	while(GestionnaireLog.LigneSuivanteExiste()!=-1)
+        	AjouterNoeud(GestionnaireLog.LireLigneSuivante());
+}
+
+
+void Graphe::GenererTop10(ostream & os)
+{
+	ChargerGraphe();
+	multimap<int,int> classementHits;
+	unordered_map<string,int>::const_iterator itCorrespond;
+	unordered_map<int,Noeud>::const_iterator itHits = noeuds.begin();
+	multimap<int,int>::const_reverse_iterator itClassement = classementHits.crbegin();
 
 }
 

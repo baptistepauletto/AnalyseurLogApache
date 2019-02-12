@@ -15,7 +15,7 @@
 #include <fstream>
 #include "Enregistrement.h"
 //------------------------------------------------------------- Constantes
-
+#define GestionnaireLog GestionnaireFichier::GetInstance()
 //------------------------------------------------------------------------
 // Rôle de la classe <GestionnaireFichier>
 // La classe GestionnaireFichier a pour objectif de permettre certaines
@@ -24,6 +24,7 @@
 // qui sont les briques de base de l'application. D'autre part, il 
 // permet également d'écrire dans un fichier en sortie selon les directives
 // du cahier des charges (génération de graphe notamment).
+// Le desing pattern Singleton est mis en place.
 //------------------------------------------------------------------------
 
 class GestionnaireFichier 
@@ -33,6 +34,12 @@ class GestionnaireFichier
 public:
     static ifstream fichierEntree;
     static ofstream fichierSortie;
+    static GestionnaireFichier & GetInstance()
+    {
+	static GestionnaireFichier instance;
+	return instance;
+    }
+
 //----------------------------------------------------- Méthodes publiques
     void OuvrirFichier(const string & nomDeFichier);
     // Mode d'emploi :
@@ -55,25 +62,14 @@ public:
     // 
    
 //------------------------------------------------- Surcharge d'opérateurs
- //   GestionnaireFichier & operator = ( const GestionnaireFichier & unGestionnaireFichier );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
+GestionnaireFichier & operator = ( const GestionnaireFichier & unGestionnaireFichier ) = delete;
+    // Note :
+    // La surcharge d'opérateur doit être interdite dans le cas d'un singleton.
 
 //-------------------------------------------- Constructeurs - destructeur
-    GestionnaireFichier ( const GestionnaireFichier & unGestionnaireFichier );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
-
-    GestionnaireFichier ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    GestionnaireFichier ( const GestionnaireFichier & unGestionnaireFichier ) = delete;
+    // Note : 
+    // La création par copie doit être interdite dans le cas d'un singleton.
 
     virtual ~GestionnaireFichier ( );
     // Mode d'emploi :
@@ -86,6 +82,11 @@ public:
 protected:
 //----------------------------------------------------- Méthodes protégées
 		
+    GestionnaireFichier ( ) ;
+    // Note : 
+    // Le constructeur est placé dans la zone protégée afin d'empêcher l'
+    // utilisateur d'instancier plusieurs fois le GestionnaireFichier.
+
 //----------------------------------------------------- Attributs protégés
 
 };

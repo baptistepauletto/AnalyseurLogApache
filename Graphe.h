@@ -44,12 +44,25 @@ public:
     // Contrat :
     //	   
 
-    void ExportGraph(string nomFichier); 
+    void ChargerGraphe();
+    // Mode d'emploi :
+    //		Cette méthode a pour objectif de lire l'intégralité
+    // des lignes du fichier de log afin de le charger entièrement
+    // dans la structure appropriée
+
+    void ExportGraphe(string nomFichier); 
     // Mode d'emploi :
     //		string nomDeFichier : chaîne de caractères pour 
     // spécifier le nom du fichier de sortie souhaité, c'est
     // dans ce dernier que se retrouvera le graphe.
-    // 
+    //
+
+    void GenererTop10(ostream & os = cout);
+    // Mode d'emploi :
+    //		ofstream & os : Fichier de sortie sur lequel 
+    // on souhaite écrire le top10 du fichier de log analysé.
+    // Par défaut, la sortie standard est utilisée.
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
 

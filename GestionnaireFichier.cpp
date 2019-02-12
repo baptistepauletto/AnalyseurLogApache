@@ -93,24 +93,7 @@ int GestionnaireFichier::LigneSuivanteExiste()
 	return Entree.peek();
 }
 
-//------------------------------------------------- Surcharge d'opérateurs
-//GestionnaireFichier & GestionnaireFichier::operator = ( const GestionnaireFichier & unGestionnaireFichier )
-// Algorithme :
-//
-//{
-//} //----- Fin de operator =
-
-
 //-------------------------------------------- Constructeurs - destructeur
-GestionnaireFichier::GestionnaireFichier ( const GestionnaireFichier & unGestionnaireFichier )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <GestionnaireFichier>" << endl;
-#endif
-} //----- Fin de GestionnaireFichier (constructeur de copie)
-
 
 GestionnaireFichier::GestionnaireFichier ( ) 
 // Algorithme :
