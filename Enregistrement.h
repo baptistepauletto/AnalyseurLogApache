@@ -87,7 +87,7 @@ public:
     // Contrat :
     //
     
-    int GetQteDonnees();
+    string GetQteDonnees();
     // Mode d'emploi :
     //		Cette méthode renvoie la valeur de l'attribut qteDonnees.
     // Contrat :
@@ -123,7 +123,7 @@ public:
     Enregistrement ( string  adresseIP = "NTM", string userLogname = "",
 		   string username = "", Date date = Date(), 
 		   string typeAction = "", string destination = "",
-		   Status status = MISSING, int qteDonnees = 0,
+		   Status status = MISSING, string qteDonnees = "",
 	           string source = "", string navigateurClient = "" );
     // Mode d'emploi :
     //
@@ -150,7 +150,7 @@ protected:
     string typeAction;
     string destination;
     Status status;
-    unsigned int qteDonnees;
+    string qteDonnees;
     string source;
     string navigateurClient;
 

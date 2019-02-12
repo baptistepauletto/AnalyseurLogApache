@@ -44,6 +44,13 @@ public:
     // Contrat :
     //	   
 
+    void ExportGraph(string nomFichier); 
+    // Mode d'emploi :
+    //		string nomDeFichier : chaîne de caractères pour 
+    // spécifier le nom du fichier de sortie souhaité, c'est
+    // dans ce dernier que se retrouvera le graphe.
+    // 
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 friend ostream & operator << (ostream & os, Graphe & unGraphe);
@@ -58,8 +65,8 @@ friend ostream & operator << (ostream & os, Graphe & unGraphe);
     // Contrat :
     //
 
-
-//-------------------------------------------- Constructeurs - destructeur
+ 
+//--------------------------------------------Constructeurs - destructeur
     Graphe ( const Graphe & unGraphe );
     // Mode d'emploi (constructeur de copie) :
     //

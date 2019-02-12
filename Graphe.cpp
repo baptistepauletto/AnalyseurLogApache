@@ -13,6 +13,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -61,6 +62,32 @@ void Graphe::AjouterNoeud(Enregistrement e)
 	
 } //---- Fin de AjouterNoeud
 
+
+void Graphe::ExportGraph(string nomFichier)
+// Algorithme :
+//
+{
+	ofstream os;
+	os.open(nomFichier);
+	os<<"digraph{"<<endl;
+	for(unordered_map<int,Noeud>::iterator it=noeuds.begin();it!=noeuds.end();it++)
+	{
+		os<<"node"<<it->first<<" [label=\""<<it->second.GetIdentifiant()<<"\"];"<<endl;
+	}
+	for(unordered_map<int,Noeud>::iterator it=noeuds.begin();it!=noeuds.end();it++)
+	{
+		for(unsigned int i=0;i<nbNoeuds;i++)
+			{
+				if(it->second.GetNbhits(i)>0)
+					os<<"node"<<it->first<<" -> "<<"node"<<i<<" [label=\""<<it->second.GetNbhits(i)<<"\"];"<<endl;
+			} 
+	}
+	os<<"}"<<endl;
+	os.close();
+
+
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 ostream & operator << (ostream & os, Graphe & unGraphe)
@@ -73,7 +100,7 @@ ostream & operator << (ostream & os, Graphe & unGraphe)
 	<< "Indice C : " << unGraphe.indiceC << endl;
 	for(auto it = unGraphe.noeuds.begin(); it != unGraphe.noeuds.end(); it++)
 	{
-		 os << it->first << " => " << it->second << endl;
+		 os << " -- " << it->first << " -- " << '\n' << it->second << endl;
 	}
 	os << "Indices d'indexation : " << endl;
 	for(auto it = unGraphe.tableCorrespondance.begin(); it != unGraphe.tableCorrespondance.end(); it++)

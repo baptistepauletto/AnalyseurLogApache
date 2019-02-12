@@ -59,9 +59,17 @@ string Enregistrement::GetTypeAction( )
 } //----- Fin de Méthode
 
 string Enregistrement::GetDestination( )
-// Algorithme :
-//
+// Note : Nous avons fait le choix de vérifier la présence de la sous chaine
+// HTTP/1.1, afin de l'enlever et avoir un traitement plus simple de la destination
+// mais il est tout à fait imaginable d'ajouter à l'avenir, sa gestion via une méthode
+// (HTTP/0.9 et HTTP/1.0 sont tout de même assez peu utilisés aujourd'hui).
 {
+	string b = " HTTP/1.1";
+	if(destination.length() > b.length())
+	{
+		if(destination.compare(destination.length()-b.length(),b.length(),b)==0)
+			destination = destination.substr(0,destination.length()-b.length());
+	}
 	return destination;
 } //----- Fin de Méthode
 
@@ -72,18 +80,20 @@ Status Enregistrement::GetStatus( )
 	return status;
 } //----- Fin de Méthode
 
-int Enregistrement::GetQteDonnees( )
+string Enregistrement::GetQteDonnees( )
 // Algorithme :
 //
 {
 	return qteDonnees;
 } //----- Fin de Méthode
 
-
 string Enregistrement::GetSource( )
 // Algorithme :
 //
 {
+	string a = "http://intranet-if.insa-lyon.fr";
+	if(source.compare(0,a.length(),a)==0)
+		source = source.substr(a.length(),source.length());
 	return source;
 } //----- Fin de Méthode
 
@@ -118,7 +128,7 @@ Enregistrement::Enregistrement ( const Enregistrement & unEnregistrement )
 Enregistrement::Enregistrement ( string adresseIP, string userLogname,
                  string username, Date date, string typeAction,
                  string destination,  Status status,
-                 int qteDonnees, string source,
+                 string qteDonnees, string source,
                  string navigateurClient ) 
 	: adresseIP(adresseIP), userLogname(userLogname),
 	 username(username), date(date), typeAction(typeAction),

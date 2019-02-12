@@ -82,9 +82,16 @@ Enregistrement GestionnaireFichier::LireLigneSuivante( )
 	//source << " " << navigateurClient << endl;
 	Date date (stoi(secondes),stoi(minutes),stoi(heure),stoi(jour),mois,stoi(annee),difGW);
 	Enregistrement e (adresseIP,userLogname,username,date,typeAction,
-	destination,(Status) stoi(status),stoi(qteDonnees),source,navigateurClient);
+	destination,(Status) stoi(status),qteDonnees,source,navigateurClient);
 	return e;
 } //----- Fin de LireLigneSuivante
+
+int GestionnaireFichier::LigneSuivanteExiste()
+// Algorithme :
+//
+{
+	return Entree.peek();
+}
 
 //------------------------------------------------- Surcharge d'opérateurs
 //GestionnaireFichier & GestionnaireFichier::operator = ( const GestionnaireFichier & unGestionnaireFichier )

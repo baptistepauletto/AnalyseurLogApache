@@ -47,7 +47,13 @@ public:
     //       	suite à la lecture de la prochaine ligne du fichier journal.
     // Contrat :
     //		Le fichier a du être ouvert au préalable.
-    
+ 
+
+    int LigneSuivanteExiste();
+    // Mode d'emploi :
+    //		Retourne -1 si la ligne suivante n'existe pas.
+    // 
+   
 //------------------------------------------------- Surcharge d'opérateurs
  //   GestionnaireFichier & operator = ( const GestionnaireFichier & unGestionnaireFichier );
     // Mode d'emploi :

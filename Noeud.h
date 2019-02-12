@@ -45,6 +45,31 @@ void IncrementePointeePar();
     // Contrat :
     //
 
+string GetIdentifiant();
+    // Mode d'emploi :
+    //		Retourne la valeur de l'attribut identifiant.
+    // Contrat :
+    //
+
+unsigned int GetPointeePar();
+    // Mode d'emploi :
+    //		Retourne la valeur de l'attribut pointeePar.
+    // Contrat :
+    //
+
+unsigned int GetPointe();
+    // Mode d'emploi :
+    //		Retourne la valeur de l'attribut Pointe.
+    // Contrat :
+    //
+
+int GetNbhits(int id);
+    // Mode d'emploi :
+    //		Retourne la valeur du nombre de hits pour un
+    // 		identifiant d'arête particulier.
+    // Contrat :
+    //
+
 //------------------------------------------------- Surcharge d'opérateurs
  
  friend ostream & operator << (ostream & os, Noeud & unNoeud);

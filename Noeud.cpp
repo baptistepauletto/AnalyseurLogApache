@@ -39,20 +39,48 @@ void Noeud::IncrementePointeePar()
 	++pointeePar;
 }
 
+string Noeud::GetIdentifiant()
+// Algorithme :
+//
+{
+	return identifiant;
+}
+
+unsigned int Noeud::GetPointeePar()
+// Algorithme :
+//
+{
+		return pointeePar;
+}
+
+unsigned int Noeud::GetPointe()
+// Algorithme :
+//
+{
+		return pointe;
+}
+
+int Noeud::GetNbhits(int id)
+// Algorithme :
+//
+{
+		return aretes[id];
+}
 //------------------------------------------------- Surcharge d'opérateurs
 
 ostream & operator << ( ostream & os, Noeud & unNoeud)
 // Algortihme :
 //
 {
-	os << "id : " << unNoeud.identifiant << endl 
+	os << " id : " << unNoeud.identifiant << endl 
 	<< " pointé par : " << unNoeud.pointeePar << endl
 	<< " pointe : " << unNoeud.pointe << endl
-	<< " aretes  : ";
+	<< " aretes  : " << endl;
 	for(auto it = unNoeud.aretes.begin();it!=unNoeud.aretes.end() ;it++)
 	{
-		os << it->first << " => " << it->second << endl;
-	} 
+		os << "   " << it->first << " => " << it->second << endl;
+	}
+	os << endl; 
 	return os;
 }
 
