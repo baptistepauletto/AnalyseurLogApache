@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-	string bjr ("test.log");
+	string bjr ("anonyme.log");
 	//GestionnaireFichier::GetInstance();
 	GestionnaireLog.OuvrirFichier(bjr);
 	//Enregistrement e = gestionnaire.LireLigneSuivante();
@@ -13,7 +13,6 @@ int main(){
 	//<< " " << e.GetNavigateurClient();
 	Graphe g;
 	g.ChargerGraphe();
-	g.ExportGraphe("blabla.dot");
-	cout << g ;
+	g.GenererTop10();
 	return 0;
 }

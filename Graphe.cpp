@@ -100,10 +100,25 @@ void Graphe::ChargerGraphe()
 void Graphe::GenererTop10(ostream & os)
 {
 	ChargerGraphe();
-	multimap<int,int> classementHits;
-	unordered_map<string,int>::const_iterator itCorrespond;
-	unordered_map<int,Noeud>::const_iterator itHits = noeuds.begin();
-	multimap<int,int>::const_reverse_iterator itClassement = classementHits.crbegin();
+	multimap<unsigned int,int> classementHits;
+	unordered_map<string,int>::iterator itCorrespond;
+	int i = 0;
+	os << "Classement des 10 sites webs les plus hits" << endl;
+	for(unordered_map<int,Noeud>::iterator itHits = noeuds.begin(); itHits !=noeuds.end(); itHits++)
+	{
+		classementHits.insert(make_pair(itHits->second.GetPointeePar(),itHits->first));
+	}
+	multimap<unsigned int,int>::reverse_iterator itClassement = classementHits.rbegin(); 
+	while ( itClassement != classementHits.rend() && i < 10 )
+	{
+		for(itCorrespond = tableCorrespondance.begin(); itCorrespond != tableCorrespondance.end(); itCorrespond++)
+		{
+			if(itCorrespond->second == itClassement->second)
+				os << i+1 <<" - " << itCorrespond->first << " => " << itClassement->first << " hit(s) " << endl;
+		}
+		++i;
+		++itClassement;
+	}
 
 }
 

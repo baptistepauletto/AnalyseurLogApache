@@ -50,7 +50,7 @@ unsigned int Noeud::GetPointeePar()
 // Algorithme :
 //
 {
-		return pointeePar;
+	return pointeePar;
 }
 
 unsigned int Noeud::GetPointe()
