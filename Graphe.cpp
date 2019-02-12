@@ -114,7 +114,10 @@ void Graphe::GenererTop10(ostream & os)
 		for(itCorrespond = tableCorrespondance.begin(); itCorrespond != tableCorrespondance.end(); itCorrespond++)
 		{
 			if(itCorrespond->second == itClassement->second)
+			{
 				os << i+1 <<" - " << itCorrespond->first << " => " << itClassement->first << " hit(s) " << endl;
+				break;
+			}
 		}
 		++i;
 		++itClassement;
