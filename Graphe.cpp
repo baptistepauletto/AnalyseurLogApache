@@ -99,7 +99,7 @@ void Graphe::ChargerGraphe()
 
 void Graphe::GenererTop10(ostream & os)
 {
-	ChargerGraphe();
+	//ChargerGraphe();
 	multimap<unsigned int,int> classementHits;
 	unordered_map<string,int>::iterator itCorrespond;
 	int i = 0;

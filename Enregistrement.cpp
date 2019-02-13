@@ -104,6 +104,13 @@ string Enregistrement::GetNavigateurClient( )
 	return navigateurClient;
 } //----- Fin de Méthode
 
+int Enregistrement::GetHeure( )
+// Algorithme :
+//
+{
+	return date.heure;
+} //----- Fin de Méthode
+
 //------------------------------------------------- Surcharge d'opérateurs
 Enregistrement & Enregistrement::operator = ( const Enregistrement & unEnregistrement )
 // Algorithme :
@@ -115,15 +122,24 @@ Enregistrement & Enregistrement::operator = ( const Enregistrement & unEnregistr
 
 
 //-------------------------------------------- Constructeurs - destructeur
+
 Enregistrement::Enregistrement ( const Enregistrement & unEnregistrement )
 // Algorithme :
 //
 {
+	adresseIP = unEnregistrement.adresseIP; 
+	userLogname = unEnregistrement.userLogname; 
+	username = unEnregistrement.username; 
+	date = unEnregistrement.date; 
+	typeAction = unEnregistrement.typeAction; 
+	destination = unEnregistrement.destination; 
+	status = unEnregistrement.status; 
+	source = unEnregistrement.source; 
+	navigateurClient = unEnregistrement.navigateurClient; 
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Enregistrement>" << endl;
 #endif
 } //----- Fin de Enregistrement (constructeur de copie)
-
 
 Enregistrement::Enregistrement ( string adresseIP, string userLogname,
                  string username, Date date, string typeAction,
@@ -142,7 +158,6 @@ Enregistrement::Enregistrement ( string adresseIP, string userLogname,
     cout << "Appel au constructeur de <Enregistrement>" << endl;
 #endif
 } //----- Fin de Enregistrement
-
 
 Enregistrement::~Enregistrement ( )
 // Algorithme :

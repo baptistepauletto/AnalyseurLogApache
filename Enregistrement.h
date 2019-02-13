@@ -104,6 +104,12 @@ public:
     //		Cette méthode renvoie la valeur de l'attribut navigateurClient.
     // Contrat :
     //
+    
+    int GetHeure();
+    // Mode d'emploi :
+    //		Cette méthode renvoie l'heure de la requête.
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
     Enregistrement & operator = ( const Enregistrement & unEnregistrement );
