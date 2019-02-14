@@ -22,8 +22,8 @@
 // interactions avec le fichier de log Apache, en effet, il fait office 
 // de singleton permettant d'ouvrir le fichier et d'en lire une ligne,
 // qui sont les briques de base de l'application. D'autre part, il 
-// permet également d'écrire dans un fichier en sortie selon les directives
-// du cahier des charges (génération de graphe notamment).
+// a l'intégrale responsabilité de fournir toutes les données pour la 
+// classe mère de l'application, soit la classe Graphe.
 // Le desing pattern Singleton est mis en place.
 //------------------------------------------------------------------------
 
@@ -33,7 +33,6 @@ class GestionnaireFichier
 
 public:
     static ifstream fichierEntree;
-    static ofstream fichierSortie;
     static GestionnaireFichier & GetInstance()
     {
 	static GestionnaireFichier instance;
