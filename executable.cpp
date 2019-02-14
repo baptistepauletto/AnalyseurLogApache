@@ -5,43 +5,24 @@
 #include "Graphe.h"
 using namespace std;
 
-string ext[]={"css","gif","jpg","js"};           //! extensions de fichier a exclure ( pas sûr si c'est complet )
-
-/* cette méthode permet d'identifier s'il faut exclure le fichier par son extension 
- * elle prend en paramètre une adresse, soit une source ou une destination */
-bool Exclure_Par_Extension(string a)					
-{
-	if(a.find('.')!=string::npos) 
-	{
-		int pos = a.rfind('.');
-		a = a.substr(pos+1,a.length());          // on prend la partie après le dernier point dans la chaine
-	}
-	for(int i=0;i<4;i++)
-	{
-			if(a==ext[i]) return true;           // si c'est un fichier à exclure, on retourne vrai
-	}
-	return false;                                // sinon on retourne faux
-}//-----fin de méthode
-
-
-
 int main(int argc,char *argv[])
 {
-	bool e,g,t = false;			                 // les variables deviendront vraies si les options correspondantes ont été choisies
-	int heure = 0;								 // heure suivant -t
-	string nomDotFichier = "";                   // nom du fichier .dot généré
+	bool e,g,t,error = false;   // les variables deviendront vraies, si les options correspondantes ont été choisies
+	int heure = 0;		    // heure suivant -t
+	string nomDotFichier = "";  // nom du fichier .dot généré
 	Graphe graphe;
-	string nomLogFichier = argv[argc-1];         // le nom du fichier qu'on lit
-	GestionnaireLog.OuvrirFichier(nomLogFichier);		   
+	string nomLogFichier = argv[argc-1];         
 	
-	//! il faut prendre en compte d'autres exceptions auxquelles j'ai pas pense
-	if(argc==1) 								 //si on ne donne aucun argument
-		cerr<<"donnez un nom de fichier!"<<endl;
-	
-	/* identfication des options */
-	if(argc>2)                                   // si on donne plusieurs parametres
+	if(argc==1) 		   // Si on ne donne aucun argument
 	{
-		for(int i=1;i<argc-1;i++)
+		cerr<<"Utilisation sans arguments impossible, rappel d'utilisation : " << endl
+		<< "./executable [-e,-g,-t] [nomFichierDot] <nomFichierLogSource> " <<endl;
+		exit(EXIT_FAILURE);
+	}
+	/* Début de l'identfication des options */
+	if(argc >= 2)                                   // Si plusieurs parametres sont donnés.
+	{
+		for(int i=1;i<argc;i++)
 		{
 			if(argv[i][0]=='-')
 			{
@@ -49,66 +30,51 @@ int main(int argc,char *argv[])
 				{
 					case 'e':
 						if(e) 
-							cerr<<"option -e donnée plusieurs fois"<<endl;
+							cerr<<"Option -e répétée !"<<endl;
 						else
+							cout << "Option d'exclusion d'extension activée ! " << endl;
 							e=true;
 						break;
 					
 					case 'g':
 						if(g) 
-							cerr<<"option -g donnée plusieurs fois"<<endl;
+							cerr<<"Option -g répétée !"<<endl;
 						else
 						{
 							nomDotFichier=argv[i+1];
-							cout<<"Dot-file "<<nomDotFichier<<" generated"<<endl;
+							cout<<"Le dot-file : "<< nomDotFichier <<" a été généré (pour GraphViz)."<<endl;
 							g=true;
 						}
 						break;
 					
 					case 't':
 						if(t) 
-							cerr<<"option -t donnée plusieurs fois"<<endl;
+							cerr<<"Option -t répétée !"<<endl;
 						else
 						{
-							heure=stoi(argv[i+1])%24;  // le système va lancer une exception si le paramètre de stoi n'est pas bon
+							heure=stoi(argv[i+1])%24;  // le système lancera une exception si le paramètre de stoi n'est pas bon
+							cout <<"Option de spécification horaire (heure = " << heure << ") activée ! "<< endl;
 							t=true;
 						}
 						break;
 					
 					default:
-						cerr<<"option inconnue"<<endl;
+						cerr<<"Option inconnue, options disponibles : -e, -g, -t"<<endl;
+						error = true;
 						break;
 				}
 			}
 		}
-	} // fin identification des options
+	} //-- Fin de l'identification des options dans la ligne de commande
 	
-	/* lecture des enregistements */
-	while(GestionnaireLog.LigneSuivanteExiste()!=-1)     // si on n'a pas touché la fin du texte
+	// Si aucune erreur n'a eu lieu, nous chargeons le fichier en considérant les potentielles options.
+	if(!error)
 	{
-		Enregistrement EC(GestionnaireLog.LireLigneSuivante());
-		bool Ajouter_Enregistrement = true;              // verifier si l'engistrement courant peut etre ajouter dans le graphe
-		if(e)                                            // si on a choisi l'option -e
-		{
-				if(Exclure_Par_Extension(EC.GetSource())||Exclure_Par_Extension(EC.GetDestination()))  // si l'un des deux fichiers a une extension qui ne convient pas
-						Ajouter_Enregistrement = false;
-		}
-		if(t)											 // si on a choisi l'option -t
-		{
-				if(heure!=EC.GetHeure())                 // si l'heure de l'enregistrement ne convient pas
-						Ajouter_Enregistrement = false;
-		}
-		if(Ajouter_Enregistrement)
-		{    
-				graphe.AjouterNoeud(EC);
-		}
-	}//------fin de lecture
-
-	// lister les top10 à partir du graphe filtré
-	graphe.GenererTop10();
-	
-	if(g)
-		graphe.ExportGraphe(nomDotFichier);
-		
-	return 0;
+		GestionnaireLog.OuvrirFichier(nomLogFichier);		   
+		graphe.ChargerGrapheConditionnel(e,t,heure);
+		graphe.GenererTop10(); // Le top 10 est généré dans tous les cas, c'est un choix de notre part.
+		if(g) 		       // Si l'utilisateur souhaite exporter le graphe , c'est ici que ce ser réalisé.
+			graphe.ExportGraphe(nomDotFichier);	
+		exit(EXIT_SUCCESS);
+	}
 }

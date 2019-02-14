@@ -91,15 +91,45 @@ void Graphe::ExportGraphe(string nomFichier)
 }
 
 void Graphe::ChargerGraphe()
+// Note : Version simplifiée de la méthode ChargerGrapheConditionnel()
+// afin de permettre à des potentiels futurs utilisateurs de ne pas s'encombrer
+// de toutes les mises en place pour les options (s'ils le souhaitent).
 {
 	while(GestionnaireLog.LigneSuivanteExiste()!=-1)
         	AjouterNoeud(GestionnaireLog.LireLigneSuivante());
 }
 
+void Graphe::ChargerGrapheConditionnel(bool optionExtension, bool optionTemps, int heure)
+//Algorithme :
+// 
+{
+	while(GestionnaireLog.LigneSuivanteExiste()!=-1)     
+	{
+		Enregistrement EC(GestionnaireLog.LireLigneSuivante());
+		bool Ajouter_Enregistrement = true;    
+		if(optionExtension)   // Si on a choisi l'option -e
+		{
+			if(ExclureParExtension(EC.GetSource())||ExclureParExtension(EC.GetDestination()))  
+						Ajouter_Enregistrement = false;
+		}
+		if(optionTemps)	// Si on a choisi l'option -t
+		{
+				if(heure!=EC.GetHeure())                 
+						Ajouter_Enregistrement = false;
+		}
+		if(Ajouter_Enregistrement)
+		{    
+				AjouterNoeud(EC);
+		}
+	}
+
+}
 
 void Graphe::GenererTop10(ostream & os)
+//Algorithme : Les informations sont placées dans une multimap qui permet d'ordonner les scores 
+// et s'en suit une analyse inversée dans la table de correspondance grâce aux index.
+// Le score est enfin affiché.
 {
-	//ChargerGraphe();
 	multimap<unsigned int,int> classementHits;
 	unordered_map<string,int>::iterator itCorrespond;
 	int i = 0;
@@ -189,3 +219,18 @@ Graphe::~Graphe ( )
 
 //----------------------------------------------------- Méthodes protégées
 
+bool Graphe::ExclureParExtension(string s)
+// Algorithme :
+//					
+{
+	if(s.find('.')!=string::npos) 
+	{
+		int pos = s.rfind('.');
+		s = s.substr(pos+1,s.length());   // On prend la partie après le dernier point dans la chaine
+	}
+	for(int i=0;i<4;i++)
+	{
+			if(s==EXT[i]) return true;// Si c'est un fichier à exclure, on retourne vrai
+	}
+	return false;                             // Sinon, on retourne faux
+}//-----fin de méthode
