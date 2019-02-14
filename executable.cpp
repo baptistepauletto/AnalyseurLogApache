@@ -7,11 +7,11 @@ using namespace std;
 
 int main(int argc,char *argv[])
 {
-	bool e,g,t,error = false;   // les variables deviendront vraies, si les options correspondantes ont été choisies
-	int heure = 0;		    // heure suivant -t
-	string nomDotFichier = "";  // nom du fichier .dot généré
+	bool e = false,g = false,t = false,error = false;   // les variables deviendront vraies, si les options correspondantes ont été choisies
+	int heure = 0;		    			    // heure suivant -t
+	string nomDotFichier = "";  			    // nom du fichier .dot généré
 	Graphe graphe;
-	string nomLogFichier = argv[argc-1];         
+	string nomLogFichier(argv[argc-1]);         
 	
 	if(argc==1) 		   // Si on ne donne aucun argument
 	{
@@ -52,7 +52,7 @@ int main(int argc,char *argv[])
 							cerr<<"Option -t répétée !"<<endl;
 						else
 						{
-							heure=stoi(argv[i+1])%24;  // le système lancera une exception si le paramètre de stoi n'est pas bon
+							heure=stoi(argv[i+1])%24; // Le système lancera une exception si le paramètre de stoi() incorrect
 							cout <<"Option de spécification horaire (heure = " << heure << ") activée ! "<< endl;
 							t=true;
 						}
@@ -72,7 +72,7 @@ int main(int argc,char *argv[])
 	{
 		GestionnaireLog.OuvrirFichier(nomLogFichier);		   
 		graphe.ChargerGrapheConditionnel(e,t,heure);
-		graphe.GenererTop10(); // Le top 10 est généré dans tous les cas, c'est un choix de notre part.
+		//graphe.GenererTop10(); // Le top 10 est généré dans tous les cas, c'est un choix de notre part.
 		if(g) 		       // Si l'utilisateur souhaite exporter le graphe , c'est ici que ce ser réalisé.
 			graphe.ExportGraphe(nomDotFichier);	
 		exit(EXIT_SUCCESS);
