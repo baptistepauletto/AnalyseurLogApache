@@ -18,7 +18,7 @@
 #include "Enregistrement.h"
 using namespace std;
 //------------------------------------------------------------- Constantes
-
+const string EXT[]={"css","gif","jpg","js"}; // Extensions de fichier à exclure 
 //------------------------------------------------------------------------
 // Rôle de la classe <Graphe>
 // La classe Graphe a pour objectif de faire l'interaction entre le 
@@ -49,6 +49,19 @@ public:
     //		Cette méthode a pour objectif de lire l'intégralité
     // des lignes du fichier de log afin de le charger entièrement
     // dans la structure appropriée
+
+    void ChargerGrapheConditionnel(bool optionExtension = false, bool optionTemps = false, int heure = 0);
+    // Mode d'emploi :
+    //		bool optionExtension : le booléen sera à vrai si 
+    //		les extensions spécifiées dans EXT doivent être exclues.
+    //		bool optionTemps : le booléen sera à vrai si le temps
+    //		des requêtes doit limiter le résultat.
+    //          int heure : spécification de l'heure souhaitée, ce paramètre ne sera
+    // 		considéré que si optionTemps est évalué à vrai.
+    //		Cette méthode a pour objectif de lire l'intégralité
+    // des lignes du fichier de log et des les analyser à la volée
+    // pour permettre de ne pas contenir les informations de certains
+    // types de fichiers, repérés par leurs extensions.
 
     void ExportGraphe(string nomFichier); 
     // Mode d'emploi :
@@ -102,11 +115,19 @@ friend ostream & operator << (ostream & os, Graphe & unGraphe);
 
 protected:
 //----------------------------------------------------- Méthodes protégées
+	
+	bool ExclureParExtension(string s);
+	// Mode d'emploi : 
+	//	string s : chaîne de caractère contenant l'URL de
+	//	la page web à traiter.
+	// Cette méthode permet d'exclure un fichier du traitement si son
+	// extension ne fait pas partie de celle souhaitée.
+
+//----------------------------------------------------- Attributs protégés
 	unsigned int nbNoeuds;
 	unsigned int indiceC;
 	unordered_map<string,int> tableCorrespondance;
 	unordered_map<int,Noeud> noeuds;		
-//----------------------------------------------------- Attributs protégés
 
 };
 
