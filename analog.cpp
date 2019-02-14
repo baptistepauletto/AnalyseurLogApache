@@ -16,7 +16,7 @@ int main(int argc,char *argv[])
 	if(argc==1) 		   // Si on ne donne aucun argument
 	{
 		cerr<<"Utilisation sans arguments impossible, rappel d'utilisation : " << endl
-		<< "./executable [-e,-g,-t] [nomFichierDot] <nomFichierLogSource> " <<endl;
+		<< "./analog [-e,-g,-t] [nomFichierDot] <nomFichierLogSource> " <<endl;
 		exit(EXIT_FAILURE);
 	}
 	/* Début de l'identfication des options */
@@ -72,7 +72,7 @@ int main(int argc,char *argv[])
 	{
 		GestionnaireLog.OuvrirFichier(nomLogFichier);		   
 		graphe.ChargerGrapheConditionnel(e,t,heure);
-		//graphe.GenererTop10(); // Le top 10 est généré dans tous les cas, c'est un choix de notre part.
+		graphe.GenererTop10(); // Le top 10 est généré dans tous les cas, c'est un choix de notre part.
 		if(g) 		       // Si l'utilisateur souhaite exporter le graphe , c'est ici que ce ser réalisé.
 			graphe.ExportGraphe(nomDotFichier);	
 		exit(EXIT_SUCCESS);

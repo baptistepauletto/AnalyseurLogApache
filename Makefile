@@ -10,7 +10,7 @@ REAL=$(INT:.h=.cpp)
 OBJ=$(REAL:.cpp=.o)
 INCPATH=
 LIBPATH=
-EXE=executable
+EXE=analog
 LIBS=
 
 .PHONY: clean
@@ -22,4 +22,4 @@ $(EXE) : $(OBJ) $(EXE).o
 	$(ECHO) "Compilation de $<"
 	$(COMP) $(CPPFLAGS) -o $@ -c $<
 clean :
-	$(RM) $(RMFLAGS) $(OBJ) $(EXE) core executable.o
+	$(RM) $(RMFLAGS) $(OBJ) $(EXE) core analog.o
