@@ -9,7 +9,7 @@ int main(int argc,char *argv[])
 {
 	bool e = false,g = false,t = false,error = false;   // les variables deviendront vraies, si les options correspondantes ont été choisies
 	int heure = 0;		    			    // heure suivant -t
-	string nomDotFichier = "";  			    // nom du fichier .dot généré
+	string nomDotFichier = "graphe.dot";  	    	    // nom du fichier .dot généré
 	Graphe graphe;
 	string nomLogFichier(argv[argc-1]);         
 	
@@ -22,7 +22,7 @@ int main(int argc,char *argv[])
 	/* Début de l'identfication des options */
 	if(argc >= 2)                                   // Si plusieurs parametres sont donnés.
 	{
-		for(int i=1;i<argc;i++)
+		for(int i=1;i<argc-1;i++)
 		{
 			if(argv[i][0]=='-')
 			{
@@ -32,8 +32,10 @@ int main(int argc,char *argv[])
 						if(e) 
 							cerr<<"Option -e répétée !"<<endl;
 						else
+						{
 							cout << "Option d'exclusion d'extension activée ! " << endl;
 							e=true;
+						}
 						break;
 					
 					case 'g':
@@ -41,9 +43,18 @@ int main(int argc,char *argv[])
 							cerr<<"Option -g répétée !"<<endl;
 						else
 						{
+							if(argv[i+1][0]=='-')            //si le nom de fichier.dot n'est pas spécifié
+							{
+								cerr << "Utilisation impossible de l'option -g sans nom du fichier,rappel d'utilisation" << endl;
+								cerr << "./analog [-e,-g,-t] [nomFichierDot] <nomFichierLogSource> " <<endl;
+								exit(EXIT_FAILURE);
+							}
+							else
+							{
 							nomDotFichier=argv[i+1];
 							cout<<"Le dot-file : "<< nomDotFichier <<" a été généré (pour GraphViz)."<<endl;
 							g=true;
+							}
 						}
 						break;
 					
@@ -61,6 +72,7 @@ int main(int argc,char *argv[])
 					default:
 						cerr<<"Option inconnue, options disponibles : -e, -g, -t"<<endl;
 						error = true;
+						exit(EXIT_FAILURE);
 						break;
 				}
 			}
@@ -73,7 +85,7 @@ int main(int argc,char *argv[])
 		GestionnaireLog.OuvrirFichier(nomLogFichier);		   
 		graphe.ChargerGrapheConditionnel(e,t,heure);
 		graphe.GenererTop10(); // Le top 10 est généré dans tous les cas, c'est un choix de notre part.
-		if(g) 		       // Si l'utilisateur souhaite exporter le graphe , c'est ici que ce ser réalisé.
+		if(g) 		       // Si l'utilisateur souhaite exporter le graphe , c'est ici que ce sera réalisé.
 			graphe.ExportGraphe(nomDotFichier);	
 		exit(EXIT_SUCCESS);
 	}
