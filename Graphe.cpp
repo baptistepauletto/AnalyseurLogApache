@@ -145,6 +145,7 @@ void Graphe::GenererTop10(ostream & os)
 		{
 			if(itCorrespond->second == itClassement->second)
 			{
+				if(itClassement->first!=0)
 				os << i+1 <<" - " << itCorrespond->first << " => " << itClassement->first << " hit(s) " << endl;
 				break;
 			}
